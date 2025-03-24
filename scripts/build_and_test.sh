@@ -28,9 +28,9 @@ fail() {
 }
 [[ -z $DATABRICKS_HOST || -z $DATABRICKS_BUNDLE_DIR || -z $DATABRICKS_BUNDLE_ENV ]] && fail
 
-BUNDLE_DIR="${ROOT_DIR}/${DATABRICKS_BUNDLE}"
 BUILD_DIR=${BUILD_DIR:-$TEMP_DIR/dist}
 mkdir -p "$BUILD_DIR"
 
+BUNDLE_DIR="${ROOT_DIR}/${DATABRICKS_BUNDLE_DIR}"
 cd "$BUNDLE_DIR"
 databricks bundle deploy "$@"
