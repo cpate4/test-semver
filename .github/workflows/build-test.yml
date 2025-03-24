@@ -104,7 +104,7 @@ jobs:
             echo "GITHUB_SHA_SHORT=$(git rev-parse --short ${{ github.event.pull_request.head.sha || github.sha }})" >> $GITHUB_OUTPUT
 
         - uses: ./.github/actions/bumper
-          if: success() && github.ref == 'refs/heads/main'
+          # if: success() && github.ref == 'refs/heads/main'
           id: tag
           env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -119,7 +119,7 @@ jobs:
           # secrets: inherit
 
         - run: ./scripts/publish.sh
-          if: success() && github.ref == 'refs/heads/main'
+          # if: success() && github.ref == 'refs/heads/main'
           env:
             DATABRICKS_BUNDLE_TAG: ${{ steps.tag.outputs.tag }}
             DATABRICKS_BUNDLE_DIR: ${{ matrix.root-dir }}
