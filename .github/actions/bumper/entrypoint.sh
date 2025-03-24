@@ -4,7 +4,7 @@
 default_semvar_bump=${DEFAULT_BUMP:-patch}
 override_semvar_bump=${OVERRIDE_BUMP}
 with_v=${WITH_V:-false}
-v_prefix=${V_prefix:-v}
+v_prefix=${V_PREFIX:-v}
 release_branches=${RELEASE_BRANCHES:-main}
 hotfix_branches=${HOTFIX_BRANCHES:-hotfix.*}
 source=${SOURCE:-.}
@@ -153,6 +153,7 @@ echo "Updated semver part $part"
 if [ ! -z "$new" ]; then
   # prefix with 'v'
   if $with_v; then
+    echo "HERE BABY!!!"
     new="${v_prefix}${new}"
   fi
 
