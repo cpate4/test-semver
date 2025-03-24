@@ -18,6 +18,12 @@ on:
     branches:
       - main
 
+permissions:
+  contents: write
+  actions: write
+  checks: write
+  id-token: write
+
 jobs:
 
   # locate databricks asset bundle (dab) root directories.
@@ -57,6 +63,8 @@ jobs:
             root-dir: ${{ fromJson(needs.find-bundles.outputs.root-dirs) }}
       steps:
         - uses: actions/checkout@v4
+          with:
+            token: ${{ secrets.GITHUB_TOKEN }} # this allows the push to succeed later      
 
         # Download the Databricks CLI.
         # See https://github.com/databricks/setup-cli
