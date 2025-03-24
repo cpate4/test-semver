@@ -82,7 +82,7 @@ jobs:
 
         # Deploy the bundle to the "cicd" target as defined
         # in the bundle's settings file.
-        - run: ./scripts/build-and-test.sh ${DATABRICKS_BUNDLE}
+        - run: ./scripts/build_and_test.sh ${DATABRICKS_BUNDLE}
           env:
             DATABRICKS_BUNDLE_DIR: ${{ matrix.root-dir }}
             DATABRICKS_BUNDLE_ENV: cicd
