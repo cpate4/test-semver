@@ -153,7 +153,6 @@ echo "Updated semver part $part"
 if [ ! -z "$new" ]; then
   # prefix with 'v'
   if $with_v; then
-    echo "HERE BABY!!!"
     new="${v_prefix}${new}"
   fi
 
