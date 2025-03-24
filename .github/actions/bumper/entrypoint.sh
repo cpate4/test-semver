@@ -59,7 +59,7 @@ git fetch --tags
 
 # get latest tag & version that looks like a semver (with or without v, using with_v)
 if $with_v; then
-  tag_pattern="${V_PREFIX[0-9]*.[0-9]*.[0-9]*"
+  tag_pattern="${V_PREFIX}[0-9]*.[0-9]*.[0-9]*"
   version_pattern="(.*)${V_PREFIX}([0-9]+\.[0-9]+\.[0-9]+-?[a-zA-Z0-9]*)(.*)"
 else
   tag_pattern="[0-9]*.[0-9]*.[0-9]*"
