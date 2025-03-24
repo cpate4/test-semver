@@ -17,7 +17,7 @@ on:
       - "*.md"
       - "infra/**"
   pull_request:
-    types: [opened, review_requested]
+    types: [opened, review_requested, synchronize]
     branches: [ '**' ]
     paths-ignore:
       - 'infra/**' # don't run application test suites when changes are in the terraform folder
