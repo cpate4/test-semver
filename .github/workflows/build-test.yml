@@ -100,7 +100,7 @@ jobs:
 
         - name: setup-tag-context
           run: |
-            echo "tag_prefix=$(basename ${{ matrix.root-dir }})" >> $GITHUB_OUTPUT
+            echo "tag_prefix=$(basename ${{ matrix.root-dir }} | tr '-' '_')" >> $GITHUB_OUTPUT
             echo "GITHUB_SHA_SHORT=$(git rev-parse --short ${{ github.event.pull_request.head.sha || github.sha }})" >> $GITHUB_OUTPUT
 
         - name: identify-tag
