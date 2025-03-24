@@ -4,6 +4,8 @@
 default_semvar_bump=${DEFAULT_BUMP:-patch}
 override_semvar_bump=${OVERRIDE_BUMP}
 with_v=${WITH_V:-false}
+v_prefix=${V_PREFIX:-v}
+git_short_sha=${GIT_SHORT_SHA:-xxxx}
 release_branches=${RELEASE_BRANCHES:-main}
 hotfix_branches=${HOTFIX_BRANCHES:-hotfix.*}
 source=${SOURCE:-.}
@@ -58,8 +60,8 @@ git fetch --tags
 
 # get latest tag & version that looks like a semver (with or without v, using with_v)
 if $with_v; then
-  tag_pattern="v[0-9]*.[0-9]*.[0-9]*"
-  version_pattern="(.*)v([0-9]+\.[0-9]+\.[0-9]+-?[a-zA-Z0-9]*)(.*)"
+  tag_pattern="${v_prefix}[0-9]*.[0-9]*.[0-9]*"
+  version_pattern="(.*)${v_prefix}([0-9]+\.[0-9]+\.[0-9]+-?[a-zA-Z0-9]*)(.*)"
 else
   tag_pattern="[0-9]*.[0-9]*.[0-9]*"
   version_pattern="(.*)([0-9]+\.[0-9]+\.[0-9]+-?[a-zA-Z0-9]*)(.*)"
@@ -152,11 +154,11 @@ echo "Updated semver part $part"
 if [ ! -z "$new" ]; then
   # prefix with 'v'
   if $with_v; then
-    new="v$new"
+    new="${v_prefix}${new}"
   fi
 
   if $pre_release; then
-    new="$new-${commit:0:7}"
+    new="$new-${git_short_sha}"
   fi
 fi
 echo "New tag is $new"

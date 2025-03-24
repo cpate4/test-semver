@@ -1,0 +1,28 @@
+# This is a Databricks asset bundle definition for ancestry.
+# See https://docs.databricks.com/dev-tools/bundles/index.html for documentation.
+# https://docs.databricks.com/aws/en/dev-tools/bundles/settings#specification
+#
+bundle:
+  name: good-bye
+  uuid: d03abb14-da12-48ee-beac-0784fe65e6dc
+
+include:
+  - resources/*.yml
+
+# https://docs.databricks.com/aws/en/dev-tools/bundles/reference#artifacts
+# artifacts:
+#   ancestry_wheel:
+#     type: whl
+#     build: poetry build --clean --format wheel
+#     path: ./artifacts/ancestry-job
+
+# https://docs.databricks.com/aws/en/dev-tools/bundles/reference#targets
+# https://docs.databricks.com/aws/en/dev-tools/bundles/deployment-modes#custom-presets
+targets:
+  dev:
+    default: true
+  cicd:
+    presets:
+      name_prefix: "[cicd ${workspace.current_user.short_name}] "
+  prod:
+    mode: production

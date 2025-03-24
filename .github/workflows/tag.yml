@@ -24,7 +24,7 @@ jobs:
 
       # https://github.com/arboretum-bio/acorn/blob/main/.github/actions/bumper/README.md
       - name: Bump the tag to a new version
-        uses: arboretum-bio/acorn/.github/actions/bumper@main
+        uses: ./.github/actions/bumper
         id: tag
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
