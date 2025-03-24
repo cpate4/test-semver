@@ -116,7 +116,7 @@ jobs:
           # secrets: inherit
 
         - run: |
-            echo "${{ fromJson(steps.tag.outputs) }}"
+            echo "${{ toJson(steps.tag.outputs) }}"
             ./scripts/publish.sh
 
           # if: success() && github.ref == 'refs/heads/main'
