@@ -39,7 +39,7 @@ jobs:
         - name: List all changed files
           id: changed-files
           # https://semgrep.dev/blog/2025/popular-github-action-tj-actionschanged-files-is-compromised/
-          uses: tj-actions/changed-files@823fceb
+          uses: tj-actions/changed-files@823fcebdb31bb35fdf2229d9f769b400309430d0
           # To compare changes between the current commit and the last pushed remote commit set `since_last_remote_commit: true`. e.g
           # with:
           #   since_last_remote_commit: true
