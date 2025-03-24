@@ -26,7 +26,7 @@ fail() {
   echo "DATABRICKS_BUNDLE_ENV: '${DATABRICKS_BUNDLE_ENV}'" # e.g. target specified in `databricks.yml`
   exit 1
 }
-[[ -z $DATABRICKS_HOST || -z $DATABRICKS_BUNDLE || -z $DATABRICKS_BUNDLE_ENV ]] && fail
+[[ -z $DATABRICKS_HOST || -z $DATABRICKS_BUNDLE_DIR || -z $DATABRICKS_BUNDLE_ENV ]] && fail
 
 BUNDLE_DIR="${ROOT_DIR}/${DATABRICKS_BUNDLE}"
 BUILD_DIR=${BUILD_DIR:-$TEMP_DIR/dist}
