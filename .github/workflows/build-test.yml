@@ -70,70 +70,13 @@ jobs:
           matrix:
             root-dir: ${{ fromJson(needs.find-bundles.outputs.root-dirs) }}
       steps:
-        - uses: actions/checkout@v4
+        - uses: ./.github/workflows/publish-bundle.yml
           with:
-            token: ${{ secrets.GITHUB_TOKEN }} # this allows the push to succeed later
+            bundle-dir: ${{ matrix.root-dir }}
 
-        # Download the Databricks CLI.
-        # See https://github.com/databricks/setup-cli
-        - uses: databricks/setup-cli@main
-
-        # https://github.com/actions/setup-python/blob/main/docs/advanced-usage.md#caching-packages
-        # https://github.com/actions/setup-python/blob/main/docs/advanced-usage.md#cache-hit
-        - run: pipx install poetry
-        - uses: actions/setup-python@v5
-          with:
-            # https://learn.microsoft.com/en-us/azure/databricks/release-notes/runtime/15.4lts#system-environment
-            python-version: 3.11
-            cache: poetry
-            # cache-dependency-path: poetry.lock
-
-        # Deploy the bundle to the "cicd" target as defined
-        # in the bundle's settings file.
-        - run: ./scripts/build_and_test.sh
-          env:
-            DATABRICKS_BUNDLE_DIR: ${{ matrix.root-dir }}
-            DATABRICKS_BUNDLE_ENV: cicd
-            # https://learn.microsoft.com/en-us/azure/databricks/dev-tools/auth/oauth-m2m#environment
-            DATABRICKS_HOST: https://adb-110501499366923.3.azuredatabricks.net
-            # service principal: github
-            DATABRICKS_CLIENT_ID: ${{ secrets.DATABRICKS_CLIENT_ID }}
-            DATABRICKS_CLIENT_SECRET: ${{ secrets.DATABRICKS_CLIENT_SECRET }}
-
-        - run: ./scripts/package.sh
-          # if: success() && github.ref == 'refs/heads/main'
-          env:
-            DATABRICKS_BUNDLE_DIR: ${{ matrix.root-dir }}
-
-        - name: setup-tag-context
-          id: setup-tag-context
-          run: |
-            echo "TAG_PREFIX=$(basename ${{ matrix.root-dir }} | tr '-' '_')" >> $GITHUB_OUTPUT
-            echo "GITHUB_SHA_SHORT=$(git rev-parse --short ${{ github.event.pull_request.head.sha || github.sha }})" >> $GITHUB_OUTPUT
-
-        - name: identify-tag
-          uses: ./.github/actions/bumper
-          # if: success() && github.ref == 'refs/heads/main'
-          id: identify-tag
-          env:
-            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-            WITH_V: true
-            V_PREFIX: ${{ steps.setup-tag-context.outputs.tag_prefix }}-
-            GIT_SHORT_SHA: ${{ steps.setup-tag-context.outputs.github_sha_short }}
-            HOTFIX_BRANCHES: hotfix.*
-            DEFAULT_BUMP: patch
-            RELEASE_BRANCHES: main
-
-        - run: ./scripts/publish.sh
-          # if: success() && github.ref == 'refs/heads/main'
-          env:
-            DATABRICKS_BUNDLE_TAG: ${{ toJson(steps.identify-tag.outputs) }}
-            DATABRICKS_BUNDLE_DIR: ${{ matrix.root-dir }}
-
-
-  # dispatch-tag:
-  #   needs: [build-test]
-  #   # only dispatch a new tag and trigger downstream image build on push to main
-  #   if: success() && github.ref == 'refs/heads/main'
-  #   uses: ./.github/workflows/tag.yml
-  #   secrets: inherit
+  dispatch-tag:
+    needs: [publish-bundle]
+    # only dispatch a new tag and trigger downstream image build on push to main
+    if: success() && github.ref == 'refs/heads/main'
+    uses: ./.github/workflows/tag.yml
+    secrets: inherit
