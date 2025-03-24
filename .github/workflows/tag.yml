@@ -1,0 +1,41 @@
+name: tag
+on:
+  workflow_call:
+    outputs:
+      tag:
+        description: "Generated tag"
+        value: ${{ jobs.tag-job.outputs.tag }}
+
+permissions:
+  contents: write
+  actions: write
+  id-token: write
+
+jobs:
+  tag-job:
+    runs-on: ubuntu-latest
+    outputs:
+      tag: ${{ steps.tag.outputs.tag }}
+    steps:
+      - name: Checkout current code
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }} # this allows the push to succeed later
+
+      # https://github.com/arboretum-bio/acorn/blob/main/.github/actions/bumper/README.md
+      - name: Bump the tag to a new version
+        uses: arboretum-bio/acorn/.github/actions/bumper@main
+        id: tag
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          HOTFIX_BRANCHES: hotfix.*
+          DEFAULT_BUMP: patch
+          RELEASE_BRANCHES: main
+
+  publish-artifacts:
+    needs: [ tag-job ]
+    if: success() && github.ref == 'refs/heads/main'
+    uses: ./.github/workflows/publish.yml
+    with:
+      image-tag: ${{ needs.tag-job.outputs.tag }}
+    secrets: inherit

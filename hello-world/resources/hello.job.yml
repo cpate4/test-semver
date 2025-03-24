@@ -1,0 +1,51 @@
+# https://docs.databricks.com/aws/en/dev-tools/bundles/reference#resources
+#
+resources:
+  jobs:
+    ancestry:
+      name: hello job
+
+      # https://docs.databricks.com/api/azure/workspace/jobs/create#tasks
+      tasks:
+        - task_key: generate_report
+          # existing_cluster_id: 0108-154433-80l4hblh
+          job_cluster_key: ancestry_cluster
+          notebook_task:
+            base_parameters:
+              input_vcf: /Volumes/ml4acorn/bioinfomatics/shared/ancestry/test_input/hg002.vcf
+              num_boostrap_for_standard_error: "2"
+              output_directory: /Volumes/ml4acorn/bioinfomatics/shared/ancestry/test_output/
+            notebook_path: ../artifacts/notebooks/hello.ipynb
+            source: WORKSPACE
+
+          notification_settings: {}
+          run_if: ALL_SUCCESS
+          webhook_notifications: {}
+
+      job_clusters:
+        # https://docs.databricks.com/api/azure/workspace/clusters/create
+        - job_cluster_key: ancestry_cluster
+          new_cluster:
+            spark_version: 15.4.x-scala2.12
+            node_type_id: Standard_E4d_v4
+            runtime_engine: PHOTON
+            data_security_mode: SINGLE_USER
+            autoscale:
+              min_workers: 1
+              max_workers: 1
+            azure_attributes:
+              availability: SPOT_AZURE
+            # this is ignored for job_clusters
+            # https://kb.databricks.com/clusters/autotermination-disabled-error-creating-job
+            autotermination_minutes: 30
+
+      email_notifications:
+        on_failure:
+          - chip@arboretum.bio
+        on_success:
+          - chip@arboretum.bio
+
+      max_concurrent_runs: 1
+      queue:
+        enabled: true
+      webhook_notifications: {}

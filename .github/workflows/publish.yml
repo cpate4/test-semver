@@ -1,0 +1,60 @@
+name: publish
+on:
+  workflow_call:
+    inputs:
+      image-tag:
+        required: true
+        type: string
+
+permissions:
+  contents: 'read'
+  id-token:  'write'
+
+jobs:
+  publish-bioinformatics-image:
+    runs-on: ubuntu-latest
+    outputs:
+      tag: ${{ steps.build-publish.outputs.imageid }}
+    steps:
+      - name: Checkout Current Code
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: AZ CLI login
+        uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+      - name: Auth Docker for ACR
+        shell: bash
+        run: az acr login --name ${{ vars.IMAGE_REPO }}
+
+      - name: Assemble Docker image metadata
+        uses: docker/metadata-action@v5
+        id: meta
+        with:
+          images: |
+            "${{ vars.IMAGE_REPO }}/${{ github.event.repository.name }}"
+          # Creates tags like 1.2.3, 1.2, 1, and latest on main branch;
+          # creates just 1.2.3-a1b2c3 otherwise.
+          tags: |
+            type=raw,value=${{ inputs.image-tag }}
+            type=semver,pattern={{major}},value=${{ inputs.image-tag }},enable={{is_default_branch}}
+            type=semver,pattern={{major}}.{{minor}},value=${{ inputs.image-tag }},enable={{is_default_branch}}
+            type=raw,value=latest,enable={{is_default_branch}}
+
+      - name: setup docker buidldx
+        uses: docker/setup-buildx-action@v3
+
+      - name: build and publish image
+        id: build-publish
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
