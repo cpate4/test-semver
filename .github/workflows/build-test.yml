@@ -98,16 +98,19 @@ jobs:
           env:
             DATABRICKS_BUNDLE_DIR: ${{ matrix.root-dir }}
 
-        - id: tag-prefix
+        - id: setup_tag_env
           run: |
             echo "tag_prefix=$(basename ${{ matrix.root-dir }})" >> $GITHUB_OUTPUT
+            echo "GITHUB_SHA_SHORT=$(git rev-parse --short ${{ github.event.pull_request.head.sha || github.sha }})" >> $GITHUB_OUTPUT
 
         - uses: ./.github/actions/bumper
+          if: success() && github.ref == 'refs/heads/main'
           id: tag
           env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
             WITH_V: true
-            V_PREFIX: ${{ steps.tag-prefix.outputs.tag_prefix }}-
+            V_PREFIX: ${{ steps.setup_tag_env.outputs.tag_prefix }}-
+            GIT_SHORT_SHA: ${{ steps.setup_tag_env.outputs.github_sha_short }}
             HOTFIX_BRANCHES: hotfix.*
             DEFAULT_BUMP: patch
             RELEASE_BRANCHES: main
@@ -115,11 +118,8 @@ jobs:
         # - uses: ./.github/workflows/tag.yml
           # secrets: inherit
 
-        - run: |
-            echo "${{ toJson(steps.tag.outputs) }}"
-            ./scripts/publish.sh
-
-          # if: success() && github.ref == 'refs/heads/main'
+        - run: ./scripts/publish.sh
+          if: success() && github.ref == 'refs/heads/main'
           env:
             DATABRICKS_BUNDLE_TAG: ${{ steps.tag.outputs.tag }}
             DATABRICKS_BUNDLE_DIR: ${{ matrix.root-dir }}

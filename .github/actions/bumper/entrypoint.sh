@@ -5,6 +5,7 @@ default_semvar_bump=${DEFAULT_BUMP:-patch}
 override_semvar_bump=${OVERRIDE_BUMP}
 with_v=${WITH_V:-false}
 v_prefix=${V_PREFIX:-v}
+git_short_sha=${GIT_SHORT_SHA:-xxxx}
 release_branches=${RELEASE_BRANCHES:-main}
 hotfix_branches=${HOTFIX_BRANCHES:-hotfix.*}
 source=${SOURCE:-.}
@@ -157,7 +158,7 @@ if [ ! -z "$new" ]; then
   fi
 
   if $pre_release; then
-    new="$new-${commit:0:7}"
+    new="$new-${git_short_sha}"
   fi
 fi
 echo "New tag is $new"
