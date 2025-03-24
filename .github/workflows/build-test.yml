@@ -118,6 +118,7 @@ jobs:
         - run: ./scripts/publish.sh
           # if: success() && github.ref == 'refs/heads/main'
           env:
+            DATABRICKS_BUNDLE_TAG: ${{ needs.tag.outputs.tag }}
             DATABRICKS_BUNDLE_DIR: ${{ matrix.root-dir }}
   
 

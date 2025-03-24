@@ -34,4 +34,4 @@ mkdir -p "$BUILD_DIR"
 BUNDLE_DIR="${ROOT_DIR}/${DATABRICKS_BUNDLE_DIR}"
 cd "$BUNDLE_DIR"
 
-echo "PUBLISHING from: '$(pwd)'"
+echo "PUBLISHING ${DATABRICKS_BUNDLE_TAG} from: '$(pwd)'"
