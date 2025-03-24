@@ -74,9 +74,9 @@ jobs:
           with:
             bundle-dir: ${{ matrix.root-dir }}
 
-  dispatch-tag:
-    needs: [publish-bundle]
-    # only dispatch a new tag and trigger downstream image build on push to main
-    if: success() && github.ref == 'refs/heads/main'
-    uses: ./.github/workflows/tag.yml
-    secrets: inherit
+  # dispatch-tag:
+  #   needs: [publish-bundle]
+  #   # only dispatch a new tag and trigger downstream image build on push to main
+  #   if: success() && github.ref == 'refs/heads/main'
+  #   uses: ./.github/workflows/tag.yml
+  #   secrets: inherit
