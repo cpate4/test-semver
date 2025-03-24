@@ -35,3 +35,4 @@ BUNDLE_DIR="${ROOT_DIR}/${DATABRICKS_BUNDLE_DIR}"
 cd "$BUNDLE_DIR"
 
 echo "PUBLISHING ${DATABRICKS_BUNDLE_TAG} from: '$(pwd)'"
+echo $(git rev-parse --short HEAD)
