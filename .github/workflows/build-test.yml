@@ -97,7 +97,15 @@ jobs:
           env:
             DATABRICKS_BUNDLE_DIR: ${{ matrix.root-dir }}
 
-        - uses: ./.github/workflows/tag.yml
+        - uses: ./.github/actions/bumper
+          id: tag
+          env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+            HOTFIX_BRANCHES: hotfix.*
+            DEFAULT_BUMP: patch
+            RELEASE_BRANCHES: main
+            
+        # - uses: ./.github/workflows/tag.yml
           # secrets: inherit
 
         - run: ./scripts/publish.sh
