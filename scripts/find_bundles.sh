@@ -21,7 +21,7 @@ for FILE in ${ALL_FILES[@]}; do
 
   while [ "$PARENT_DIR" != "." ]; do
     if [[ -f "./${PARENT_DIR}/databricks.yml" && ! ${ROOT_DIRS[@]} =~ $PARENT_DIR ]]; then
-      ROOT_DIRS+=($("${PARENT_DIR}"))
+      ROOT_DIRS+=("${PARENT_DIR}")
       break
     else
       PARENT_DIR="$(dirname $PARENT_DIR)"
