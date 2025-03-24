@@ -107,7 +107,7 @@ jobs:
           env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
             WITH_V: true
-            V_PREFIX: ${{ steps.tag-prefix.outputs.tag_prefix }}
+            V_PREFIX: ${{ steps.tag-prefix.outputs.tag_prefix }}-
             HOTFIX_BRANCHES: hotfix.*
             DEFAULT_BUMP: patch
             RELEASE_BRANCHES: main
