@@ -63,16 +63,18 @@ jobs:
       runs-on: ubuntu-latest
       needs:
         find-bundles
+      permissions:
+        contents: 'read'
+        id-token: 'write'
       # https://docs.github.com/en/actions/writing-workflows/choosing-what-your-workflow-does/running-variations-of-jobs-in-a-workflow
       if: ${{ needs.find-bundles.outputs.root-dirs != '' && needs.find-bundles.outputs.root-dirs != '[]' }}
       strategy:
           fail-fast: false
           matrix:
             root-dir: ${{ fromJson(needs.find-bundles.outputs.root-dirs) }}
-      steps:
-        - uses: ./.github/workflows/publish-bundle.yml
-          with:
-            bundle-dir: ${{ matrix.root-dir }}
+      uses: ./.github/workflows/publish-bundle.yml
+      with:
+        bundle-dir: ${{ matrix.root-dir }}
 
   # dispatch-tag:
   #   needs: [publish-bundle]
