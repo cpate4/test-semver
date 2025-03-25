@@ -24,12 +24,6 @@ on:
   merge_group:
   workflow_dispatch:
 
-# permissions:
-#   contents: write
-#   actions: write
-#   checks: write
-#   id-token: write
-
 jobs:
 
   # locate databricks asset bundle (dab) root directories.
@@ -105,17 +99,14 @@ jobs:
           DATABRICKS_CLIENT_ID: ${{ secrets.DATABRICKS_CLIENT_ID }}
           DATABRICKS_CLIENT_SECRET: ${{ secrets.DATABRICKS_CLIENT_SECRET }}
 
-      - run: ./scripts/package.sh
-        # if: success() && github.ref == 'refs/heads/main'
-        env:
-          DATABRICKS_BUNDLE_DIR: ${{ matrix.root-dir }}
-
       - name: setup-tag-context
         id: setup-tag-context
         run: |
-          echo "TAG_PREFIX=$(basename ${{ matrix.root-dir }} | tr '-' '_')" >> $GITHUB_OUTPUT
+          echo "TAG_PREFIX=$(yq '.bundle.name' databricks.yml)" >> $GITHUB_OUTPUT
           echo "GITHUB_SHA_SHORT=$(git rev-parse --short ${{ github.event.pull_request.head.sha || github.sha }})" >> $GITHUB_OUTPUT
+        working-directory: ${{ matrix.root-dir }}
 
+      # THIS COULD BE A PARALLEL PROCESS TO BUILD (identify-tags)
       - name: identify-tag
         uses: ./.github/actions/bumper-new
         # if: success() && github.ref == 'refs/heads/main'
@@ -128,6 +119,12 @@ jobs:
           # NOTE: do not tag if not on main branch
           # use PRERELEASE / PRERELEASE_SUFFIX if branch tags are needed
           DRY_RUN: ${{ github.ref != 'refs/heads/main' }}
+
+
+      - run: ./scripts/package.sh
+        # if: success() && github.ref == 'refs/heads/main'
+        env:
+          DATABRICKS_BUNDLE_DIR: ${{ matrix.root-dir }}
 
       - run: ./scripts/publish.sh
         # if: success() && github.ref == 'refs/heads/main'
