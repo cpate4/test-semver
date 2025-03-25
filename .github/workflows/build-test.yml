@@ -116,15 +116,13 @@ jobs:
           echo "GITHUB_SHA_SHORT=$(git rev-parse --short ${{ github.event.pull_request.head.sha || github.sha }})" >> $GITHUB_OUTPUT
 
       - name: identify-tag
-        uses: ./.github/actions/bumper
+        uses: ./.github/actions/bumper-new
         # if: success() && github.ref == 'refs/heads/main'
         id: identify-tag
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          WITH_V: true
-          V_PREFIX: ${{ steps.setup-tag-context.outputs.tag_prefix }}-
+          TAG_PREFIX: ${{ steps.setup-tag-context.outputs.tag_prefix }}-
           GIT_SHORT_SHA: ${{ steps.setup-tag-context.outputs.github_sha_short }}
-          HOTFIX_BRANCHES: hotfix.*
           DEFAULT_BUMP: patch
           RELEASE_BRANCHES: main
 
