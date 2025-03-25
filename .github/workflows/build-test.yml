@@ -125,7 +125,7 @@ jobs:
           TAG_PREFIX: ${{ steps.setup-tag-context.outputs.tag_prefix }}-
           DEFAULT_BUMP: patch
           RELEASE_BRANCHES: main
-          DRY_RUN: ${{ github.ref != 'refs/heads/main' }}
+          # DRY_RUN: ${{ github.ref != 'refs/heads/main' }}
 
       - run: ./scripts/publish.sh
         # if: success() && github.ref == 'refs/heads/main'
