@@ -64,8 +64,8 @@ jobs:
     needs:
       find-bundles
     permissions:
-      # contents: write
-      contents: read
+      contents: write
+      # contents: read
       id-token: write
     # https://docs.github.com/en/actions/writing-workflows/choosing-what-your-workflow-does/running-variations-of-jobs-in-a-workflow
     if: ${{ needs.find-bundles.outputs.root-dirs != '' && needs.find-bundles.outputs.root-dirs != '[]' }}
