@@ -36,3 +36,6 @@ cd "$BUNDLE_DIR"
 
 echo "PUBLISHING ${DATABRICKS_BUNDLE_TAG} from: '$(pwd)'"
 echo $(git rev-parse --short HEAD)
+
+echo $(which jq)
+echo $(which yq)
