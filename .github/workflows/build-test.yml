@@ -104,6 +104,7 @@ jobs:
         run: |
           echo "TAG_PREFIX=$(yq '.bundle.name' databricks.yml)" >> $GITHUB_OUTPUT
           echo "GITHUB_SHA_SHORT=$(git rev-parse --short ${{ github.event.pull_request.head.sha || github.sha }})" >> $GITHUB_OUTPUT
+        working-directory: ${{ matrix.root-dir }}
 
       # THIS COULD BE A PARALLEL PROCESS TO BUILD (identify-tags)
       - name: identify-tag
