@@ -38,4 +38,4 @@ echo "PUBLISHING ${DATABRICKS_BUNDLE_TAG} from: '$(pwd)'"
 echo $(git rev-parse --short HEAD)
 
 echo $(which jq)
-echo $(which yq)
+echo $(yq '.bundle.name' databricks.yml)
