@@ -6,7 +6,7 @@
 # of a databricks asset bundle (DAB).
 #
 # usage (and to test locally):
-# ./scripts/build_and_deploy.sh [asset-bundle-dir]
+# ./scripts/build_and_deploy.sh [databricks.yml:target] [options]
 #
 
 # script variables and defaults
@@ -23,13 +23,10 @@ fail() {
   echo "Missing one of the required ENV variables."
   echo "DATABRICKS_HOST:       '${DATABRICKS_HOST}'"       # e.g. https://adb-110501499366923.3.azuredatabricks.net
   echo "DATABRICKS_BUNDLE_DIR: '${DATABRICKS_BUNDLE_DIR}'" # e.g. DAB root-directory
-  echo "DATABRICKS_BUNDLE_ENV: '${DATABRICKS_BUNDLE_ENV}'" # e.g. target specified in `databricks.yml`
+  echo "DATABRICKS_BUNDLE_ENV: '${DATABRICKS_BUNDLE_ENV}'" # e.g. `target` specified in `databricks.yml`
   exit 1
 }
 [[ -z $DATABRICKS_HOST || -z $DATABRICKS_BUNDLE_DIR || -z $DATABRICKS_BUNDLE_ENV ]] && fail
-
-BUILD_DIR=${BUILD_DIR:-$TEMP_DIR/dist}
-mkdir -p "$BUILD_DIR"
 
 BUNDLE_DIR="${ROOT_DIR}/${DATABRICKS_BUNDLE_DIR}"
 cd "$BUNDLE_DIR"
