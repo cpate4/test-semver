@@ -24,12 +24,6 @@ on:
   merge_group:
   workflow_dispatch:
 
-permissions:
-  contents: write
-  actions: write
-  checks: write
-  id-token: write
-
 jobs:
 
   # locate databricks asset bundle (dab) root directories.
