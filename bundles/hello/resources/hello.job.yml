@@ -10,6 +10,8 @@ resources:
         - task_key: generate_report
           # existing_cluster_id: 0108-154433-80l4hblh
           job_cluster_key: hello_cluster
+          libraries:
+            - "jar": ../artifacts/java/lib/build/libs/*.jar
           notebook_task:
             base_parameters:
               input_vcf: /Volumes/ml4acorn/bioinfomatics/shared/ancestry/test_input/hg002.vcf

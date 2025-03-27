@@ -6,15 +6,10 @@
 # of a databricks asset bundle (DAB).
 #
 # usage (and to test locally):
-# ./scripts/build_and_deploy.sh [asset-bundle-dir]
+# ./scripts/build_and_deploy.sh [databricks.yml:target] [options]
 #
-
-# script variables and defaults
 ROOT_DIR=$(dirname $(dirname $(realpath $0)))
-TEMP_DIR="${ROOT_DIR}/tmp"
-mkdir -p $TEMP_DIR
-
-source $ROOT_DIR/scripts/lib.sh
+source $ROOT_DIR/scripts/init.sh
 
 DATABRICKS_BUNDLE_ENV=${1:-$DATABRICKS_BUNDLE_ENV}
 shift
@@ -28,9 +23,5 @@ fail() {
 }
 [[ -z $DATABRICKS_HOST || -z $DATABRICKS_BUNDLE_DIR || -z $DATABRICKS_BUNDLE_ENV ]] && fail
 
-BUILD_DIR=${BUILD_DIR:-$TEMP_DIR/dist}
-mkdir -p "$BUILD_DIR"
-
-BUNDLE_DIR="${ROOT_DIR}/${DATABRICKS_BUNDLE_DIR}"
-cd "$BUNDLE_DIR"
-databricks bundle deploy "$@"
+cd "$DATABRICKS_BUNDLE_DIR"
+DATABRICKS_BUNDLE_ENV="${DATABRICKS_BUNDLE_ENV}" databricks bundle deploy "$@"

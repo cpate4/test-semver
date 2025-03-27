@@ -49,7 +49,7 @@ jobs:
           env:
             ALL_CHANGED_FILES: ${{ steps.changed-files.outputs.all_changed_files }}
           run: |
-            ROOT_DIRS=$(./scripts/find_bundles.sh "${ALL_CHANGED_FILES}")
+            ROOT_DIRS=$(./scripts/bundle-find.sh "${ALL_CHANGED_FILES}")
             echo "root_dirs=$ROOT_DIRS" >> $GITHUB_OUTPUT
 
 
