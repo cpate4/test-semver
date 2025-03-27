@@ -16,10 +16,10 @@ fail() {
 }
 [[ -z $DATABRICKS_BUNDLE_DIR ]] && fail
 
-# DATABRICKS_BUNDLE_DIR=$(realpath "$DATABRICKS_BUNDLE_DIR")
 cd "${DATABRICKS_BUNDLE_DIR}"
 
-# build the artifacts
+
+# build all associated artifacts/ for the databricks asset bundle
 ARTIFACTS_DIR="./artifacts"
 ARTIFACTS=$(ls $ARTIFACTS_DIR | grep -v notebooks)
 if [ -n "${ARTIFACTS[@]}" ]; then
@@ -33,7 +33,6 @@ fi
 
 
 DATABRICKS_BUNDLE_ID=${DATABRICKS_BUNDLE_ID:-$(yq .bundle.name databricks.yml)}
-
 DATABRICKS_BUNDLE_TAG=${DATABRICKS_BUNDLE_TAG:-$(git rev-parse --short HEAD)}
 
 log_info "archiving databricks asset bundle: ${DATABRICKS_BUNDLE_ID}"
@@ -44,6 +43,7 @@ string="${array[*]}"         # creates a space-delimited string
 string="${string// /-}"
 
 DATABRICKS_BUNDLE_ARCHIVE="${BUILD_DIR}/${string}.tgz"
+
 
 tar cfz ${DATABRICKS_BUNDLE_ARCHIVE} \
     --exclude=".venv" --exclude=".gradle" --exclude="build" \
