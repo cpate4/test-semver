@@ -124,7 +124,7 @@ jobs:
 
       # Deploy the bundle to the "cicd" target as defined
       # in the bundle's settings file.
-      - run: ./scripts/bundle-deploy-and-test.sh
+      - run: ./scripts/bundle-deploy.sh
         env:
           DATABRICKS_BUNDLE_DIR: ${{ steps.setup-cicd-context.outputs.databricks_bundle_dir }}
           DATABRICKS_BUNDLE_ENV: ${{ steps.setup-cicd-context.outputs.databricks_bundle_env }}
