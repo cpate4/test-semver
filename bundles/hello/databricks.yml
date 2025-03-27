@@ -20,9 +20,10 @@ include:
 # https://docs.databricks.com/aws/en/dev-tools/bundles/deployment-modes#custom-presets
 targets:
   dev:
-    default: true
+    default: false
   cicd:
     presets:
       name_prefix: "[cicd ${workspace.current_user.short_name}] "
   prod:
     mode: production
+
