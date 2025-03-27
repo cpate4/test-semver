@@ -102,7 +102,7 @@ jobs:
 
       # THIS COULD BE A PARALLEL PROCESS TO BUILD (identify-tags)
       - name: identify-tag
-        uses: ./.github/actions/bumper
+        uses: ./.github/actions/github-tag-action
         # if: success() && github.ref == 'refs/heads/main'
         id: identify-tag
         env:
