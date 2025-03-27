@@ -32,27 +32,26 @@ if [ -n "${ARTIFACTS[@]}" ]; then
 fi
 
 
-# DATABRICKS_BUNDLE_ID=${DATABRICKS_BUNDLE_ID:-$(yq .bundle.name databricks.yml)}
-# BUILD_DIR="${BUILD_DIR}/${DATABRICKS_BUNDLE_ID}"
+DATABRICKS_BUNDLE_ID=${DATABRICKS_BUNDLE_ID:-$(yq .bundle.name databricks.yml)}
 
-# DATABRICKS_BUNDLE_TAG=${DATABRICKS_BUNDLE_TAG:-$(git rev-parse --short HEAD)}
+DATABRICKS_BUNDLE_TAG=${DATABRICKS_BUNDLE_TAG:-$(git rev-parse --short HEAD)}
 
-# log_info "archiving databricks asset bundle: ${DATABRICKS_BUNDLE_ID}"
-# log_debug "${DATABRICKS_BUNDLE_ID} tag: ${DATABRICKS_BUNDLE_TAG}"
+log_info "archiving databricks asset bundle: ${DATABRICKS_BUNDLE_ID}"
+log_debug "${DATABRICKS_BUNDLE_ID} tag: ${DATABRICKS_BUNDLE_TAG}"
 
-# array=($DATABRICKS_BUNDLE_ID $DATABRICKS_BUNDLE_TAG)
-# string="${array[*]}"         # creates a space-delimited string
-# string="${string// /-}"
+array=($DATABRICKS_BUNDLE_ID $DATABRICKS_BUNDLE_TAG)
+string="${array[*]}"         # creates a space-delimited string
+string="${string// /-}"
 
-# DATABRICKS_BUNDLE_ARCHIVE="${BUILD_DIR}/${string}.tgz"
+DATABRICKS_BUNDLE_ARCHIVE="${BUILD_DIR}/${string}.tgz"
 
-# tar cfz ${DATABRICKS_BUNDLE_ARCHIVE} \
-#     --exclude=".venv" --exclude=".gradle" --exclude="build" \
-#     artifacts/notebooks/* \
-#     databricks.yml \
-#     resources/*
+tar cfz ${DATABRICKS_BUNDLE_ARCHIVE} \
+    --exclude=".venv" --exclude=".gradle" --exclude="build" \
+    artifacts/notebooks/* \
+    databricks.yml \
+    resources/*
 
-# log_info "${DATABRICKS_BUNDLE_ID} archive'd here: ${DATABRICKS_BUNDLE_ARCHIVE}"
-# # echo ""
-# # echo "Archived files: ${BUILD_DIR}/${DATABRICKS_BUNDLE}.tgz"
-# # echo "$(tar tvf ${BUILD_DIR}/${DATABRICKS_BUNDLE}.tgz)"
+log_info "${DATABRICKS_BUNDLE_ID} archive'd here: ${DATABRICKS_BUNDLE_ARCHIVE}"
+# echo ""
+# echo "Archived files: ${BUILD_DIR}/${DATABRICKS_BUNDLE}.tgz"
+# echo "$(tar tvf ${BUILD_DIR}/${DATABRICKS_BUNDLE}.tgz)"

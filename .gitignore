@@ -2,3 +2,5 @@ tmp/
 **/resources/artifacts/
 
 **/dist/
+
+build/
