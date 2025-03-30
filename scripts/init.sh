@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 
-
 BUILD_DIR=${BUILD_DIR:-"$ROOT_DIR/build"}
 mkdir -p "$BUILD_DIR"
 

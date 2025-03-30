@@ -24,7 +24,6 @@ poetry run pip download -r dist/requirements.txt -d dist/wheels
 # stage them in the DATABRICKS_BUNDLE_DIR
 cd -
 ARTIFACT_ID=$(basename ${ARTIFACT_DIR})
-RESOURCE_DIR="resources/artifacts/${ARTIFACT_ID}"
-mkdir -p $RESOURCE_DIR
-cp -rv "${ARTIFACT_DIR}/dist"/* "resources/artifacts/${ARTIFACT_ID}"
-
+LIBRARY_DIR="resources/libraries/${ARTIFACT_ID}"
+mkdir -p $LIBRARY_DIR
+cp -rv "${ARTIFACT_DIR}/dist"/* "${LIBRARY_DIR}"

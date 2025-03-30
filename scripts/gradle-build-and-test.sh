@@ -20,10 +20,10 @@ log_info "BUILDING GRADLE artifact: ${ARTIFACT_DIR}"
 ./gradlew jar
 ./gradlew downloadDependencies
 
-
 # stage them in the DATABRICKS_BUNDLE_DIR
 cd -
 echo "PWD: $(pwd)"
 ARTIFACT_ID=$(basename ${ARTIFACT_DIR})
-mkdir -p "resources/artifacts/${ARTIFACT_ID}"
-cp -v "${ARTIFACT_DIR}"/**/build/libs/*.jar "resources/artifacts/${ARTIFACT_ID}"
+LIBRARY_DIR="resources/libraries/${ARTIFACT_ID}"
+mkdir -p $LIBRARY_DIR
+cp -rv "${ARTIFACT_DIR}"/**/build/libs/*.jar "${LIBRARY_DIR}"
