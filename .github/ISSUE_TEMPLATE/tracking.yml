@@ -1,4 +1,4 @@
-name: Notion tracking issue
+name: Roadmap Tracking
 description: Link between Notion roadmap and the GitHub work that delivers it
 title: "[Feature] <name matching Notion roadmap entry>"
 labels: ["tracking"]
@@ -16,9 +16,8 @@ body:
     attributes:
       label: Scope summary
       description: |
-        2-4 sentences.<br/>
-        What ships under this feature, and/or what is explicitly out of scope?<br/>
-        Detail lives in Notion — keep this short.
+        2-4 sentences. Detail lives in Notion — keep this short.<br/>
+        What ships under this feature, and/or what is explicitly out of scope?
     validations:
       required: true
   - type: textarea
@@ -38,5 +37,20 @@ body:
           accept terms and conditions, etc.)?
         - **Other**: anything else security-relevant.
         Enter `N/A` if there is no impact.
+      placeholder: |
+        - Will this issue change security in any way?
+          Additional questions to consider include:
+          - Will these changes allow new people or systems access to systems or data?
+          - Will these changes change existing access for people or across systems?
+            - This includes adding or removing access
+        - Will this issue affect patient privacy in any way?
+          Additional questions to consider include:
+          - Will these changes affect any processing or storage of
+            Personally Identifiable Information (PII)?
+        - Will this issue affect how user's provide consent in any way?
+          Some examples include (but are not limited to):
+          - authorize consent,
+          - accept terms and conditions,
+          - other?
     validations:
       required: true
