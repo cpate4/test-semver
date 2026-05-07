@@ -1,7 +1,6 @@
 name: Bug
 description: Something is broken. Closed by a `fix(...)` PR.
 title: "<short description of the broken behavior>"
-type: Bug
 body:
   - type: input
     id: parent

@@ -1,7 +1,6 @@
 name: Notion tracking issue
 description: Link between Notion roadmap and the GitHub work that delivers it
 title: "[Feature] <name matching Notion roadmap entry>"
-type: Feature
 labels: ["tracking"]
 body:
   - type: input
