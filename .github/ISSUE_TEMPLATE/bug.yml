@@ -1,0 +1,45 @@
+name: Bug
+description: Something is broken. Closed by a `fix(...)` PR.
+title: "<short description of the broken behavior>"
+type: Bug
+body:
+  - type: input
+    id: parent
+    attributes:
+      label: Parent feature tracking issue
+      description: The `[Feature]` this bug regressed, if applicable. Leave blank for platform-level bugs — triage will reclassify as a task if needed.
+      placeholder: "#1234"
+  - type: textarea
+    id: observed
+    attributes:
+      label: Observed behavior
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+  - type: textarea
+    id: repro
+    attributes:
+      label: Steps to reproduce
+  - type: textarea
+    id: security
+    attributes:
+      label: Security concerns
+      description: |
+        Describe any security, privacy, authorization, or consent impact. Consider:
+        - **System access**: does this bug (or its fix) allow new people or systems
+          to access systems or data?
+        - **Authorization**: does it add, remove, or modify existing access for
+          people or across systems?
+        - **Patient privacy / PII**: does it affect processing or storage of
+          Personally Identifiable Information?
+        - **Consent**: does it affect how users provide consent (authorize consent,
+          accept terms and conditions, etc.)?
+        - **Other**: anything else security-relevant.
+        Enter `N/A` if there is no impact.
+    validations:
+      required: true

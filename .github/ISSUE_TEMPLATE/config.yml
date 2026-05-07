@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Product roadmap (Notion)
+    url: https://www.notion.so/Product-Roadmap-Backlog-22412964fe5f80129b3cfd848a4cf623
+    about: Roadmap features live here. New features should be added in Notion first, then mirrored as a `tracking` issue in GitHub.

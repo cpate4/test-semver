@@ -1,0 +1,54 @@
+name: Feature tracking issue
+description: Bridge between a Notion roadmap feature and the GitHub work that delivers it. Create one per Notion feature.
+title: "[Feature] <name matching Notion roadmap entry>"
+type: Feature
+labels: ["tracking"]
+body:
+  - type: input
+    id: notion_url
+    attributes:
+      label: Notion roadmap link
+      description: URL of the canonical entry in the Product Roadmap.
+      placeholder: https://www.notion.so/...
+    validations:
+      required: true
+  - type: input
+    id: owner
+    attributes:
+      label: Engineering owner
+      description: GitHub handle of the tech lead accountable for delivery.
+    validations:
+      required: true
+  - type: textarea
+    id: scope
+    attributes:
+      label: Scope summary
+      description: 2-4 sentences. What ships under this feature, and what is explicitly out of scope. Detail lives in Notion — keep this short.
+    validations:
+      required: true
+  - type: textarea
+    id: child_issues
+    attributes:
+      label: Child issues
+      description: Auto-populated as sub-issues are attached. Leave the placeholder; GitHub renders the sub-issue checklist here.
+      value: |
+        _Sub-issues will appear automatically once attached._
+  - type: textarea
+    id: security
+    attributes:
+      label: Security concerns
+      description: |
+        Describe any security, privacy, authorization, or consent impact for the
+        feature as a whole. Consider:
+        - **System access**: will this feature allow new people or systems to
+          access systems or data?
+        - **Authorization**: will it add, remove, or modify existing access for
+          people or across systems?
+        - **Patient privacy / PII**: will it affect processing or storage of
+          Personally Identifiable Information?
+        - **Consent**: will it affect how users provide consent (authorize consent,
+          accept terms and conditions, etc.)?
+        - **Other**: anything else security-relevant.
+        Enter `N/A` if there is no impact.
+    validations:
+      required: true

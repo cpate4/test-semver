@@ -1,0 +1,40 @@
+name: Engineering Task
+description: Engineering work not tied to a roadmap feature — refactors, infra, CI, perf, docs, tests. Closed by `chore|refactor|perf|build|ci|docs|test|style(...)` PRs.
+title: "<short imperative description>"
+type: Task
+body:
+  - type: textarea
+    id: context
+    attributes:
+      label: Context (the WHY)
+      description: |
+        What needs to change and why. If this is motivated by a specific incident,
+        risk, or concern, link it.
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance criteria (the WHAT)
+      description: |
+        The intended behavior or state that must exist for this issue to be complete.
+        Bullet list is fine.
+    validations:
+      required: true
+  - type: textarea
+    id: security
+    attributes:
+      label: Security concerns
+      description: |
+        Describe any security, privacy, authorization, or consent impact. Consider:
+        - **System access**: do these changes allow new people or systems to access
+          systems or data?
+        - **Authorization**: do these changes add, remove, or modify existing access
+          for people or across systems?
+        - **Patient privacy / PII**: do these changes affect processing or storage
+          of Personally Identifiable Information?
+        - **Consent**: do these changes affect how users provide consent?
+        - **Other**: anything else security-relevant.
+        Enter `N/A` if there is no impact.
+    validations:
+      required: true

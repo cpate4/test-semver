@@ -1,0 +1,48 @@
+name: Feature work
+description: A unit of work that delivers part of a roadmap feature. Closed by a `feat(...)` PR.
+title: "<short imperative description>"
+type: Feature
+body:
+  - type: input
+    id: parent
+    attributes:
+      label: Parent feature tracking issue
+      description: The `[Feature]` tracking issue this rolls up to. Leave blank if unsure — triage will resolve.
+      placeholder: "#1234 or https://github.com/.../issues/1234"
+  - type: textarea
+    id: context
+    attributes:
+      label: Context (the WHY)
+      description: |
+        What problem does this solve, and why now? Frame as a user story where it
+        helps: who benefits, what they can do that they couldn't before, and what
+        value it adds.
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance criteria (the WHAT)
+      description: |
+        The intended behavior that must exist for this issue to be complete.
+        Bullet list is fine.
+    validations:
+      required: true
+  - type: textarea
+    id: security
+    attributes:
+      label: Security concerns
+      description: |
+        Describe any security, privacy, authorization, or consent impact. Consider:
+        - **System access**: do these changes allow new people or systems to access
+          systems or data?
+        - **Authorization**: do these changes add, remove, or modify existing access
+          for people or across systems?
+        - **Patient privacy / PII**: do these changes affect processing or storage
+          of Personally Identifiable Information?
+        - **Consent**: do these changes affect how users provide consent (authorize
+          consent, accept terms and conditions, etc.)?
+        - **Other**: anything else security-relevant.
+        Enter `N/A` if there is no impact.
+    validations:
+      required: true
