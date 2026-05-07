@@ -26,7 +26,9 @@ body:
       label: Security concerns
       description: |
         Describe any security, privacy, authorization, or consent impact for the
-        feature as a whole. Consider:
+        feature as a whole.
+
+        Consider:
         - **System access**: will this feature allow new people or systems to
           access systems or data?
         - **Authorization**: will it add, remove, or modify existing access for
