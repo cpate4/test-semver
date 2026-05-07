@@ -1,6 +1,7 @@
 name: Engineering Task
 description: Engineering work not tied to a roadmap feature — refactors, infra, CI, perf, docs, tests. Closed by `chore|refactor|perf|build|ci|docs|test|style(...)` PRs.
 title: "<short imperative description>"
+type: Task
 body:
   - type: textarea
     id: context

@@ -1,0 +1,30 @@
+name: Issue Template
+description: Default issue template for Arboretum
+body:
+  - type: textarea
+    id: acceptance-criteria
+    attributes:
+      label: Acceptance criteria
+      placeholder: |
+        - Describe the intended behavior (read: The WHAT) that must exist
+          for this issue to be considered complete.
+        - It is helpful to also describe the WHY for doing this.
+          - What issues or problems does this behavior intend to solve for the user?
+          - The WHY is also referred to as a User Story demonstrating
+            how this feature adds value for the user.
+    validations:
+      required: true
+  - type: dropdown
+    id: compliance-security
+    attributes:
+      label: Security concerns
+      description: Identify if this issue affects security in any way.
+      multiple: true
+      options:
+        - "N/A"
+        - "System access"
+        - "Authorization"
+        - "Consent"
+        - "Other"
+    validations:
+      required: true

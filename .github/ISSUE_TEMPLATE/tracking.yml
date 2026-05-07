@@ -1,6 +1,7 @@
-name: Feature tracking issue
-description: Bridge between a Notion roadmap feature and the GitHub work that delivers it. Create one per Notion feature.
+name: Notion tracking issue
+description: Link between Notion roadmap and the GitHub work that delivers it
 title: "[Feature] <name matching Notion roadmap entry>"
+type: Feature
 labels: ["tracking"]
 body:
   - type: input
@@ -8,30 +9,19 @@ body:
     attributes:
       label: Notion roadmap link
       description: URL of the canonical entry in the Product Roadmap.
-      placeholder: https://www.notion.so/...
-    validations:
-      required: true
-  - type: input
-    id: owner
-    attributes:
-      label: Engineering owner
-      description: GitHub handle of the tech lead accountable for delivery.
+      placeholder: https://www.notion.so/Product-Roadmap-Backlog-22412964fe5f80129b3cfd848a4cf623/...
     validations:
       required: true
   - type: textarea
     id: scope
     attributes:
       label: Scope summary
-      description: 2-4 sentences. What ships under this feature, and what is explicitly out of scope. Detail lives in Notion — keep this short.
+      description: |
+        2-4 sentences.
+        What ships under this feature, and/or what is explicitly out of scope?
+        Detail lives in Notion — keep this short.
     validations:
       required: true
-  - type: textarea
-    id: child_issues
-    attributes:
-      label: Child issues
-      description: Auto-populated as sub-issues are attached. Leave the placeholder; GitHub renders the sub-issue checklist here.
-      value: |
-        _Sub-issues will appear automatically once attached._
   - type: textarea
     id: security
     attributes:
