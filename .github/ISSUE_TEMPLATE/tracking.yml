@@ -16,8 +16,8 @@ body:
     attributes:
       label: Scope summary
       description: |
-        2-4 sentences.
-        What ships under this feature, and/or what is explicitly out of scope?
+        2-4 sentences.<br/>
+        What ships under this feature, and/or what is explicitly out of scope?<br/>
         Detail lives in Notion — keep this short.
     validations:
       required: true
