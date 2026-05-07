@@ -1,7 +1,6 @@
 name: Feature work
 description: A unit of work that delivers part of a roadmap feature. Closed by a `feat(...)` PR.
 title: "<short imperative description>"
-type: Feature
 body:
   - type: input
     id: parent

@@ -1,7 +1,6 @@
 name: Feature tracking issue
 description: Bridge between a Notion roadmap feature and the GitHub work that delivers it. Create one per Notion feature.
 title: "[Feature] <name matching Notion roadmap entry>"
-type: Feature
 labels: ["tracking"]
 body:
   - type: input
