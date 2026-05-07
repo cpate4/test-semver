@@ -38,7 +38,6 @@ body:
         - **Consent**: will it affect how users provide consent (authorize consent,
           accept terms and conditions, etc.)?
         - **Other**: anything else security-relevant.
-
-        Enter `N/A` if there is no impact.
+        - **Enter `N/A` if there is no impact.**
     validations:
       required: true
